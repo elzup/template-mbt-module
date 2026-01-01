@@ -21,38 +21,32 @@
   },
   "homepage": "https://github.com/elzup/TODO#readme",
   "keywords": [
-    "utils",
-    "personal"
+    "moonbit",
+    "utils"
   ],
   "engines": {
     "node": ">=18"
   },
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "clean": "rimraf lib",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
-    "build:cjs": "tsc --module commonjs --outDir lib/cjs && echo '{\"type\": \"commonjs\"}' > lib/cjs/package.json",
-    "build:esm": "tsc --module esnext --outDir lib/esm --moduleResolution node --allowSyntheticDefaultImports",
-    "build:types": "tsc --declaration --emitDeclarationOnly --outDir lib/types",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
+    "clean": "rimraf lib target",
+    "build": "node scripts/build.js",
+    "test:mbt": "moon test",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:cov": "vitest run --coverage",
-    "prepublishOnly": "npm run build && npm test"
+    "test:all": "pnpm test:mbt && pnpm build && pnpm test",
+    "prepublishOnly": "pnpm test:all"
   },
   "files": [
     "lib/"
   ],
   "sideEffects": false,
   "devDependencies": {
-    "@elzup/tsconfig": "1.1.0",
-    "@types/node": "24.10.1",
     "@vitest/coverage-v8": "^4.0.15",
     "@vitest/ui": "^4.0.15",
-    "oxlint": "^1.31.0",
     "rimraf": "^6.1.2",
-    "typescript": "5.9.3",
     "vitest": "^4.0.15"
   }
 }
