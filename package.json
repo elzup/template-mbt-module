@@ -1,0 +1,58 @@
+{
+  "name": "TODO",
+  "version": "0.0.0",
+  "description": "TODO",
+  "author": "elzup",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
+  "repository": "elzup/TODO",
+  "bugs": {
+    "url": "https://github.com/elzup/TODO/issues"
+  },
+  "homepage": "https://github.com/elzup/TODO#readme",
+  "keywords": [
+    "utils",
+    "personal"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs && echo '{\"type\": \"commonjs\"}' > lib/cjs/package.json",
+    "build:esm": "tsc --module esnext --outDir lib/esm --moduleResolution node --allowSyntheticDefaultImports",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir lib/types",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:cov": "vitest run --coverage",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "files": [
+    "lib/"
+  ],
+  "sideEffects": false,
+  "devDependencies": {
+    "@elzup/tsconfig": "1.1.0",
+    "@types/node": "24.10.1",
+    "@vitest/coverage-v8": "^4.0.15",
+    "@vitest/ui": "^4.0.15",
+    "oxlint": "^1.31.0",
+    "rimraf": "^6.1.2",
+    "typescript": "5.9.3",
+    "vitest": "^4.0.15"
+  }
+}
