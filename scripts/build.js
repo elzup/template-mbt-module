@@ -25,13 +25,13 @@ function buildFormat(format) {
   writeFileSync(PKG_JSON_PATH, JSON.stringify(pkgJson, null, 2) + "\n");
 
   try {
-    run("moon build --target js");
+    run("moon build --target js --release");
 
     // Copy output
     const outputDir = join(LIB_DIR, format);
     mkdirSync(outputDir, { recursive: true });
 
-    const buildOutput = join(ROOT, "target/js/release/build/lib/lib.js");
+    const buildOutput = join(ROOT, "_build/js/release/build/lib/lib.js");
     cpSync(buildOutput, join(outputDir, "index.js"));
 
     // Add package.json for CJS
